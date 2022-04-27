@@ -112,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
       setState(() {
         // audioDuration = duration.inSeconds;
         viewModelProvider.totalDuration = duration.inSeconds;
-        viewModelProvider.setTotalDuration(viewModelProvider.totalDuration);
+        // viewModelProvider.setTotalDuration(viewModelProvider.totalDuration);
       });
     });
     audioPlayer.onAudioPositionChanged.listen((Duration position) async {
@@ -128,7 +128,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void dispose() {
     audioPlayer.release();
-    audioPlayer.dispose();
+    // audioPlayer.dispose();
+   
     super.dispose();
   }
 
@@ -156,756 +157,523 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
-    return Scaffold(
-      backgroundColor: Colors.black45,
-      appBar: AppBar(
+    return SafeArea(
+      child: Scaffold(
         backgroundColor: Colors.black45,
-        elevation: 0,
-        title: CustomText(
-          text: "Recently played",
-          color: Colors.white,
-          fontSize: 22,
-          fontWeight: FontWeight.bold,
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.notifications,
-              size: 26,
-            ),
+        appBar: AppBar(
+          backgroundColor: Colors.black45,
+          elevation: 0,
+          title: CustomText(
+            text: "Recently played",
+            color: Colors.white,
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
           ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.schedule_outlined,
-              size: 26,
+          actions: [
+            IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.notifications,
+                size: 26,
+              ),
             ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.settings,
-              size: 26,
+            IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.schedule_outlined,
+                size: 26,
+              ),
             ),
-          )
-        ],
-      ),
-      body: SafeArea(
-          child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            MusicCard(
-              containerHeight: 100,
-              containerWidth: 80,
-              title: "The Power of",
-              lebel: "Positive Thinking",
-              url: "ferfer",
-              imageUrl:
-                  "https://static.remove.bg/remove-bg-web/5cc729f2c60683544f035949b665ce17223fd2ec/assets/start-1abfb4fe2980eabfbbaaa4365a0692539f7cd2725f324f904565a9a744f8e214.jpg",
-              imageHeight: 60,
-              imagewidth: 80,
-              textColor: Colors.white,
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            CustomText(
-              text: "Made For Account",
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            MusicCard(
-              containerHeight: 125,
-              containerWidth: 100,
-              title: "The Power of",
-              lebel: "Positive Thinking",
-              url: "dfergf",
-              imageUrl:
-                  "https://static.remove.bg/remove-bg-web/5cc729f2c60683544f035949b665ce17223fd2ec/assets/start-1abfb4fe2980eabfbbaaa4365a0692539f7cd2725f324f904565a9a744f8e214.jpg",
-              imageHeight: 90,
-              imagewidth: 100,
-              textColor: Colors.grey,
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            CustomText(
-              text: "Recommended Radio",
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Container(
-              height: 125,
-              child: ListView.builder(
-                  itemCount: viewModelProvider.musicListProvider.length,
-                  scrollDirection: Axis.horizontal,
-                  shrinkWrap: true,
-                  itemExtent: 125,
-                  physics: ScrollPhysics(),
-                  itemBuilder: (context, globalMusicIndex) {
-                    return GestureDetector(
-                      onTap: () {
-                        viewModelProvider.globalIndex = globalMusicIndex;
-                        viewModelProvider
-                            .setGlobalIndex(viewModelProvider.globalIndex);
-                        viewModelProvider.selectedMusicProvider =
-                            viewModelProvider.musicListProvider[
-                                viewModelProvider.globalIndex];
-                        // selectedMuisc = musicList[globalMusicIndex];
-                        viewModelProvider.setSelectedMusic(
-                            viewModelProvider.selectedMusicProvider);
-                        isNavbarShow = true;
-                        // audioPlayerState == PlayerState.PLAYING
-                        //     ?
-                        // pauseMusic();
-                        playMusic();
-                        setState(() {});
-                      },
-                      child: MusicCard(
-                        containerHeight: 125,
-                        containerWidth: 90,
-                        title: viewModelProvider
-                            .musicListProvider[globalMusicIndex].title,
-                        lebel: viewModelProvider
-                            .musicListProvider[globalMusicIndex].lebel,
-                        imageUrl: viewModelProvider
-                            .musicListProvider[globalMusicIndex].imageUrl,
-                        url: viewModelProvider
-                            .musicListProvider[globalMusicIndex].url,
-                        imageHeight: 80,
-                        imagewidth: 90,
-                        textColor: Colors.grey,
-                      ),
-                    );
-                  }),
+            IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.settings,
+                size: 26,
+              ),
             )
           ],
         ),
-      )),
-      bottomNavigationBar: isNavbarShow == false
-          ? Container(
-              height: 50,
-            )
-          : GestureDetector(
-              onTap: () {
-                // showModalBottomSheet(
-                //     useRootNavigator: true,
-                //     isScrollControlled: true,
-                //     context: context,
-                //     builder: (context) {
-                //       // var sliderValue = 0.0;
-                //       // RangeValues Myheight = RangeValues(
-                //       //     timeProgress.toDouble(), audioDuration.toDouble());
-                //       return StatefulBuilder(
-                //         builder: (BuildContext context, setState) => Container(
-                //           height: height,
-                //           width: double.infinity,
-                //           color: Colors.black,
-                //           child: Scaffold(
-                //             backgroundColor: Colors.black45,
-                //             appBar: AppBar(
-                //               centerTitle: true,
-                //               backgroundColor: Colors.black45,
-                //               elevation: 0.0,
-                //               leading: IconButton(
-                //                   onPressed: () {
-                //                     Navigator.pop(context);
-                //                   },
-                //                   icon: Icon(
-                //                     Icons.expand_more,
-                //                     color: Colors.white,
-                //                     size: 26,
-                //                   )),
-                //               title: Column(
-                //                 children: [
-                //                   CustomText(
-                //                     text: viewModelProvider
-                //                         .selectedMusicProvider!.title,
-                //                     fontSize: 12,
-                //                     fontWeight: FontWeight.w400,
-                //                     color: Colors.white,
-                //                   ),
-                //                   CustomText(
-                //                     text: viewModelProvider
-                //                         .selectedMusicProvider!.lebel,
-                //                     fontSize: 12,
-                //                     fontWeight: FontWeight.w800,
-                //                     color: Colors.white,
-                //                   ),
-                //                 ],
-                //               ),
-                //               actions: [
-                //                 IconButton(
-                //                   onPressed: () {},
-                //                   icon: Icon(
-                //                     Icons.more_vert,
-                //                     size: 26,
-                //                   ),
-                //                 )
-                //               ],
-                //             ),
-                //             body: SafeArea(
-                //                 child: Padding(
-                //               padding: EdgeInsets.symmetric(horizontal: 16),
-                //               child: Column(
-                //                 children: [
-                //                   SizedBox(
-                //                     height: 40,
-                //                   ),
-                //                   Image.network(
-                //                     viewModelProvider
-                //                         .selectedMusicProvider!.imageUrl,
-                //                     height: height * 0.4,
-                //                     width: double.infinity,
-                //                     fit: BoxFit.cover,
-                //                   ),
-                //                   SizedBox(
-                //                     height: 30,
-                //                   ),
-                //                   Row(
-                //                     mainAxisAlignment:
-                //                         MainAxisAlignment.spaceBetween,
-                //                     children: [
-                //                       Column(
-                //                         crossAxisAlignment:
-                //                             CrossAxisAlignment.start,
-                //                         children: [
-                //                           CustomText(
-                //                             text: viewModelProvider
-                //                                 .selectedMusicProvider!.title,
-                //                             color: Colors.white,
-                //                             fontSize: 16,
-                //                             fontWeight: FontWeight.w600,
-                //                           ),
-                //                           CustomText(
-                //                             text: viewModelProvider
-                //                                 .selectedMusicProvider!.lebel,
-                //                             color: Colors.grey,
-                //                             fontSize: 15,
-                //                             fontWeight: FontWeight.w600,
-                //                           ),
-                //                         ],
-                //                       ),
-                //                       IconButton(
-                //                           onPressed: () {},
-                //                           icon: Icon(
-                //                             Icons.favorite_border_outlined,
-                //                             size: 30,
-                //                             color: Colors.white,
-                //                           ))
-                //                     ],
-                //                   ),
-                //                   SizedBox(
-                //                     height: 16,
-                //                   ),
-                //                   Slider.adaptive(
-                //                     value: timeProgress.toDouble(),
-                //                     max: audioDuration.toDouble(),
-                //                     onChanged: (value) {
-                //                       setState(() {
-                //                         timeProgress = value.toInt();
-                //                       });
-                //                       // setState(
-                //                       //     () => timeProgress = value.toInt());
-                //                       // setState((() => timeProgress));
-                //                       seekToSec(timeProgress);
-                //                       setState(() {});
-                //                       // value:
-                //                       // timeProgress;
-                //                       // setState;
-                //                     },
-                //                     inactiveColor: Colors.grey,
-                //                     activeColor: Colors.white,
-                //                   ),
-                //                   SizedBox(
-                //                     height: 10,
-                //                   ),
-                //                   Row(
-                //                     mainAxisAlignment:
-                //                         MainAxisAlignment.spaceEvenly,
-                //                     children: [
-                //                       IconButton(
-                //                           onPressed: () {},
-                //                           icon: Icon(
-                //                             Icons.shuffle,
-                //                             size: 28,
-                //                             color: Colors.white,
-                //                           )),
-                //                       IconButton(
-                //                           onPressed: () {
-                //                             if (globalMusicIndex > 0) {
-                //                               globalMusicIndex--;
-                //                               selectedMuisc =
-                //                                   musicList[globalMusicIndex];
-                //                               playMusic();
-                //                               setState(() {});
-                //                             }
-                //                           },
-                //                           icon: Icon(
-                //                             Icons.skip_previous,
-                //                             size: 34,
-                //                             color: Colors.white,
-                //                           )),
-                // GestureDetector(
-                //   onTap: () {
-                //     audioPlayerState ==
-                //             PlayerState.PLAYING
-                //         ? pauseMusic()
-                //         : playMusic();
-                //     setState(() {});
-                //   },
-                //   child: Icon(
-                //     audioPlayerState ==
-                //             PlayerState.PLAYING
-                //         ? Icons
-                //             .pause_circle_filled_outlined
-                //         : Icons.play_circle_fill_outlined,
-                //     size: 60,
-                //     color: Colors.white,
-                //   ),
-                // ),
-                //                       IconButton(
-                //                           onPressed: () {
-                //                             print("tap");
-
-                //                             if (globalMusicIndex ==
-                //                                 musicList.length - 1) {
-                //                               globalMusicIndex = 0;
-                //                               selectedMuisc =
-                //                                   musicList[globalMusicIndex];
-                //                               playMusic();
-                //                               setState(() {});
-                //                             } else {
-                //                               globalMusicIndex++;
-                //                               selectedMuisc =
-                //                                   musicList[globalMusicIndex];
-                //                               playMusic();
-                //                               setState(() {});
-                //                               print(globalMusicIndex);
-                //                             }
-                //                           },
-                //                           icon: Icon(
-                //                             Icons.skip_next,
-                //                             size: 34,
-                //                             color: Colors.white,
-                //                           )),
-                //                       IconButton(
-                //                           onPressed: () {},
-                //                           icon: Icon(
-                //                             Icons.loop_outlined,
-                //                             size: 28,
-                //                             color: Colors.white,
-                //                           )),
-                //                     ],
-                //                   )
-                //                 ],
-                //               ),
-                //             )),
-                //           ),
-                //         ),
-                //       );
-                //     });
-                // Navigator.push(context,
-                //     MaterialPageRoute(builder: (context) => PlayerDetails()));
-                showModalBottomSheet(
-                    useRootNavigator: true,
-                    isScrollControlled: true,
-                    context: context,
-                    builder: (context) {
-                      return Container(
-                        child: buildPlayer(),
-                      );
-                    });
-              },
-              child: Consumer<ViewModelProvider>(
-                builder: ((context, viewModelProvider, child) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Container(
-                      height: 50,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Colors.greenAccent,
-                      ),
-                      child: Column(
-                        children: [
-                          // Slider.adaptive(
-                          //   value: timeProgress.toDouble(),
-                          //   max: audioDuration.toDouble(),
-                          //   onChanged: (value) {
-                          //     setState(() {
-                          //       timeProgress = value.toInt();
-                          //     });
-                          //     // setState(
-                          //     //     () => timeProgress = value.toInt());
-                          //     // setState((() => timeProgress));
-                          //     seekToSec(timeProgress);
-                          //     setState(() {});
-                          //     // value:
-                          //     // timeProgress;
-                          //     // setState;
-                          //   },
-                          //   inactiveColor: Colors.grey,
-                          //   activeColor: Colors.white,
-                          // ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10),
-                                    child: Image.network(
-                                      // selectedMuisc!.imageUrl,
-                                      viewModelProvider
-                                          .selectedMusicProvider!.imageUrl,
-                                      height: 50,
-                                      width: 40,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      CustomText(
-                                        // text: selectedMuisc!.title,
-                                        text: viewModelProvider
-                                            .selectedMusicProvider!.title,
-                                        color: Colors.white,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                      CustomText(
-                                        // text: selectedMuisc!.lebel,
-                                        text: viewModelProvider
-                                            .selectedMusicProvider!.lebel,
-                                        color: Colors.grey,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.favorite_border_outlined,
-                                    color: Colors.white,
-                                    size: 30,
-                                  ),
-                                  SizedBox(
-                                    width: 12,
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      audioPlayerState == PlayerState.PLAYING
-                                          ? pauseMusic()
-                                          : playMusic();
-                                    },
-                                    child: Icon(
-                                      audioPlayerState == PlayerState.PLAYING
-                                          ? Icons.pause
-                                          : Icons.play_arrow,
-                                      color: Colors.white,
-                                      size: 30,
-                                    ),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
+        body: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8.0),
+          child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          MusicCard(
+            containerHeight: 100,
+            containerWidth: 80,
+            title: "The Power of",
+            lebel: "Positive Thinking",
+            url: "ferfer",
+            imageUrl:
+                "https://static.remove.bg/remove-bg-web/5cc729f2c60683544f035949b665ce17223fd2ec/assets/start-1abfb4fe2980eabfbbaaa4365a0692539f7cd2725f324f904565a9a744f8e214.jpg",
+            imageHeight: 60,
+            imagewidth: 80,
+            textColor: Colors.white,
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          CustomText(
+            text: "Made For Account",
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          MusicCard(
+            containerHeight: 125,
+            containerWidth: 100,
+            title: "The Power of",
+            lebel: "Positive Thinking",
+            url: "dfergf",
+            imageUrl:
+                "https://static.remove.bg/remove-bg-web/5cc729f2c60683544f035949b665ce17223fd2ec/assets/start-1abfb4fe2980eabfbbaaa4365a0692539f7cd2725f324f904565a9a744f8e214.jpg",
+            imageHeight: 90,
+            imagewidth: 100,
+            textColor: Colors.grey,
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          CustomText(
+            text: "Recommended Radio",
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Container(
+            height: 125,
+            child: ListView.builder(
+                itemCount: viewModelProvider.musicListProvider.length,
+                scrollDirection: Axis.horizontal,
+                shrinkWrap: true,
+                itemExtent: 125,
+                physics: ScrollPhysics(),
+                itemBuilder: (context, globalMusicIndex) {
+                  return GestureDetector(
+                    onTap: () {
+                      viewModelProvider.globalIndex = globalMusicIndex;
+                      viewModelProvider
+                          .setGlobalIndex(viewModelProvider.globalIndex);
+                      viewModelProvider.selectedMusicProvider =
+                          viewModelProvider.musicListProvider[
+                              viewModelProvider.globalIndex];
+                    
+                      viewModelProvider.setSelectedMusic(
+                          viewModelProvider.selectedMusicProvider);
+                      isNavbarShow = true;
+                     
+                      playMusic();
+                      setState(() {});
+                    },
+                    child: MusicCard(
+                      containerHeight: 125,
+                      containerWidth: 90,
+                      title: viewModelProvider
+                          .musicListProvider[globalMusicIndex].title,
+                      lebel: viewModelProvider
+                          .musicListProvider[globalMusicIndex].lebel,
+                      imageUrl: viewModelProvider
+                          .musicListProvider[globalMusicIndex].imageUrl,
+                      url: viewModelProvider
+                          .musicListProvider[globalMusicIndex].url,
+                      imageHeight: 80,
+                      imagewidth: 90,
+                      textColor: Colors.grey,
                     ),
                   );
                 }),
+          )
+        ],
+          ),
+        ),
+        bottomNavigationBar: isNavbarShow == false
+            ? Container(
+                height: 50,
+              )
+            : GestureDetector(
+                onTap: () {
+ 
+                  showModalBottomSheet(
+                      useRootNavigator: true,
+                      isScrollControlled: true,
+                      context: context,
+                      builder: (context) {
+                        return Container(
+                          child: buildPlayer(),
+                        );
+                      });
+                },
+                child: Consumer<ViewModelProvider>(
+                  builder: ((context, viewModelProvider, child) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Container(
+                        height: 70,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: Colors.greenAccent,
+                        ),
+                        child: Column(
+                          children: [
+                         
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Container(height: 70,width: 70,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.only(topLeft:Radius.circular(8),bottomLeft:Radius.circular(8) ),
+                                        child: Image.network(
+                                          // selectedMuisc!.imageUrl,
+                                          viewModelProvider
+                                              .selectedMusicProvider!.imageUrl,
+                                         fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        // SizedBox(
+                                        //   height: 10,
+                                        // ),
+                                        CustomText(
+                                          // text: selectedMuisc!.title,
+                                          text: viewModelProvider
+                                              .selectedMusicProvider!.title,
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        CustomText(
+                                          // text: selectedMuisc!.lebel,
+                                          text: viewModelProvider
+                                              .selectedMusicProvider!.lebel,
+                                          color: Colors.grey,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.favorite_border_outlined,
+                                      color: Colors.white,
+                                      size: 30,
+                                    ),
+                                    SizedBox(
+                                      width: 12,
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        audioPlayerState == PlayerState.PLAYING
+                                            ? pauseMusic()
+                                            : playMusic();
+                                      },
+                                      child: Icon(
+                                        audioPlayerState == PlayerState.PLAYING
+                                            ? Icons.pause
+                                            : Icons.play_arrow,
+                                        color: Colors.white,
+                                        size: 40,
+                                      ),
+                                    ),
+
+
+                                  ],
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }),
+                ),
               ),
-            ),
+      ),
     );
   }
 
-  Widget buildPlayer() {
+  Widget buildPlayer() {SizedBox(height: 100);
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Consumer<ViewModelProvider>(
       builder: (context, viewModelProvider, child) {
         return StatefulBuilder(
           builder: ((context, setState) {
-            return Scaffold(
-              backgroundColor: Colors.black,
-              appBar: AppBar(
-                centerTitle: true,
+            return SafeArea(
+              child: Scaffold(
                 backgroundColor: Colors.black,
-                elevation: 0.0,
-                leading: IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: Icon(
-                      Icons.expand_more,
-                      color: Colors.white,
-                      size: 26,
-                    )),
-                title: Column(
-                  children: [
-                    CustomText(
-                      text: viewModelProvider.selectedMusicProvider!.title,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.white,
-                    ),
-                    CustomText(
-                      text: viewModelProvider.selectedMusicProvider!.lebel,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w800,
-                      color: Colors.white,
-                    ),
-                  ],
-                ),
-                actions: [
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.more_vert,
-                      size: 26,
-                    ),
-                  )
-                ],
-              ),
-              body: SafeArea(
-                  child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 40,
-                    ),
-                    Image.network(
-                      viewModelProvider.selectedMusicProvider!.imageUrl,
-                      height: height * 0.4,
-                      width: double.infinity,
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CustomText(
-                              text: viewModelProvider
-                                  .selectedMusicProvider!.title,
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
-                            CustomText(
-                              text: viewModelProvider
-                                  .selectedMusicProvider!.lebel,
-                              color: Colors.grey,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ],
-                        ),
-                        IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.favorite_border_outlined,
-                              size: 30,
-                              color: Colors.white,
-                            ))
-                      ],
-                    ),
-                    SizedBox(
-                      height: 16,
-                    ),
-                    // Slider(
-                    //   value: 0.5,
-                    //   onChanged: (v) {},
-                    //   min: 0,
-                    //   max: 1,
-                    //   inactiveColor: Colors.grey,
-                    //   activeColor: Colors.white,
-                    // ),
-                    Container(
-                      width: width * 0.8,
-                      child: Slider.adaptive(
-                        value: viewModelProvider.prog.toDouble(),
-                        max: viewModelProvider.totalDuration.toDouble(),
-                        onChanged: (value) {
-                          // setState(() {
-                          //   timeProgress = value.toInt();
-                          // });
-                          // setState(
-                          //     () => timeProgress = value.toInt());
-                          // setState((() => timeProgress));
-                          setState(() {
-                            value;
-                          });
-                          seekToSec(value.toInt());
-                          setState(() {});
-                          // value:
-                          // timeProgress;
-                          // setState;
-                        },
-                        inactiveColor: Colors.grey,
-                        activeColor: Colors.white,
+                appBar: AppBar(
+                  centerTitle: true,
+                  toolbarHeight: 150,
+                  backgroundColor: Colors.black,
+                  elevation: 0.0,
+                  leading: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(
+                        Icons.expand_more,
+                        color: Colors.white,
+                        size: 26,
+                      )),
+                  title: Column(
+                    children: [
+                      CustomText(
+                        text: viewModelProvider.selectedMusicProvider!.title,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.white,
                       ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        IconButton(
-                            onPressed: () {
-                              // int maxIndex =
-                              //     viewModelProvider.musicListProvider.length -
-                              //         1;
-                              // int min = 0;
-                              if (viewModelProvider.isRandom == false) {
-                                viewModelProvider.isRandom = true;
-                                viewModelProvider.setIsRandom(true);
-                                int randomIndex = rnd.nextInt((viewModelProvider
-                                            .musicListProvider.length -
-                                        1) -
-                                    0);
-                                viewModelProvider.globalIndex = randomIndex;
-                                viewModelProvider.setGlobalIndex(
-                                    viewModelProvider.globalIndex);
-                                print(randomIndex);
-                                setState(
-                                  () {},
-                                );
-                              } else if (viewModelProvider.isRandom == true) {
-                                viewModelProvider.isRandom = false;
-                                viewModelProvider
-                                    .setIsRandom(viewModelProvider.isRandom);
-                              }
-                            },
-                            icon: Icon(Icons.shuffle,
-                                size: 28,
-                                color: viewModelProvider.isRandom == false
-                                    ? Colors.white
-                                    : Colors.blueGrey)),
-                        IconButton(
-                            onPressed: () {
-                              if (viewModelProvider.globalIndex > 0) {
-                                viewModelProvider.globalIndex--;
-                                viewModelProvider.setGlobalIndex(
-                                    viewModelProvider.globalIndex);
-                                viewModelProvider.selectedMusicProvider =
-                                    viewModelProvider.musicListProvider[
-                                        viewModelProvider.globalIndex];
-                                viewModelProvider.setSelectedMusic(
-                                    viewModelProvider.selectedMusicProvider);
-                                playMusic();
-                              }
-                            },
-                            icon: Icon(
-                              Icons.skip_previous,
-                              size: 34,
-                              color: Colors.white,
-                            )),
-                        GestureDetector(
-                          onTap: () {
-                            audioPlayerState == PlayerState.PLAYING
-                                ? pauseMusic()
-                                : playMusic();
-                            setState(() {});
-                          },
-                          child: Icon(
-                            audioPlayerState == PlayerState.PLAYING
-                                ? Icons.pause_circle_filled_outlined
-                                : Icons.play_circle_fill_outlined,
-                            size: 60,
-                            color: Colors.white,
-                          ),
-                        ),
-                        IconButton(
-                            onPressed: () {
-                              if (viewModelProvider.globalIndex ==
-                                  viewModelProvider.musicListProvider.length -
-                                      1) {
-                                viewModelProvider.globalIndex = 0;
-
-                                viewModelProvider.setGlobalIndex(
-                                    viewModelProvider.globalIndex);
-                                viewModelProvider.selectedMusicProvider =
-                                    viewModelProvider.musicListProvider[
-                                        viewModelProvider.globalIndex];
-                                viewModelProvider.setSelectedMusic(
-                                    viewModelProvider.selectedMusicProvider);
-                                playMusic();
-                              } else {
-                                viewModelProvider.globalIndex++;
-                                viewModelProvider.setGlobalIndex(
-                                    viewModelProvider.globalIndex);
-                                viewModelProvider.selectedMusicProvider =
-                                    viewModelProvider.musicListProvider[
-                                        viewModelProvider.globalIndex];
-                                viewModelProvider.setSelectedMusic(
-                                    viewModelProvider.selectedMusicProvider);
-                                playMusic();
-                              }
-                            },
-                            icon: Icon(
-                              Icons.skip_next,
-                              size: 34,
-                              color: Colors.white,
-                            )),
-                        IconButton(
-                            onPressed: () {
-                              if (viewModelProvider.isLoop == false) {
-                                audioPlayer.setReleaseMode(ReleaseMode.LOOP);
-                                viewModelProvider.isLoop = true;
-                                viewModelProvider
-                                    .setIsLoop(viewModelProvider.isLoop);
-                                setState(() {});
-                              } else if (viewModelProvider.isLoop == true) {
-                                audioPlayer.setReleaseMode(ReleaseMode.RELEASE);
-                                viewModelProvider.isLoop = false;
-                                viewModelProvider
-                                    .setIsLoop(viewModelProvider.isLoop);
-                                setState(() {});
-                              }
-                            },
-                            icon: Icon(
-                              Icons.loop_outlined,
-                              size: 28,
-                              color: viewModelProvider.isLoop == false
-                                  ? Colors.white
-                                  : Colors.blueGrey,
-                            )),
-                      ],
+                      CustomText(
+                        text: viewModelProvider.selectedMusicProvider!.lebel,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.white,
+                      ),
+                    ],
+                  ),
+                  actions: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.more_vert,
+                        size: 26,
+                      ),
                     )
                   ],
                 ),
-              )),
+                body: SafeArea(
+                    child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 40,
+                      ),
+                      Image.network(
+                        viewModelProvider.selectedMusicProvider!.imageUrl,
+                        height: height * 0.4,
+                        width: double.infinity,
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CustomText(
+                                text: viewModelProvider
+                                    .selectedMusicProvider!.title,
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              CustomText(
+                                text: viewModelProvider
+                                    .selectedMusicProvider!.lebel,
+                                color: Colors.grey,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ],
+                          ),
+                          IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.favorite_border_outlined,
+                                size: 30,
+                                color: Colors.white,
+                              ))
+                        ],
+                      ),
+                      SizedBox(
+                        height: 16,
+                      ),
+                     
+                      Row(mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            viewModelProvider
+                                .getTimeString(viewModelProvider.prog),
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          Container(
+                            width: width * 0.7,
+                            height: 5,
+                            child: Slider.adaptive(
+                              value: viewModelProvider.prog.toDouble(),
+                              max: viewModelProvider.totalDuration.toDouble(),
+                              onChanged: (value) {
+                             
+                                seekToSec(value.toInt());
+                              
+                              },
+                              inactiveColor: Colors.grey,
+                              activeColor: Colors.white,
+                            ),
+                          ),
+                
+                             Text(
+                            viewModelProvider
+                                .getTimeString(viewModelProvider.totalDuration-viewModelProvider.prog),
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                              
+                                if (viewModelProvider.isRandom == false) {
+                                  viewModelProvider.isRandom = true;
+                                  viewModelProvider.setIsRandom(true);
+                                  int randomIndex = rnd.nextInt((viewModelProvider
+                                              .musicListProvider.length -
+                                          1) -
+                                      0);
+                                  viewModelProvider.globalIndex = randomIndex;
+                                  viewModelProvider.setGlobalIndex(
+                                      viewModelProvider.globalIndex);
+                                  print(randomIndex);
+                                  setState(
+                                    () {},
+                                  );
+                                } else if (viewModelProvider.isRandom == true) {
+                                  viewModelProvider.isRandom = false;
+                                  viewModelProvider
+                                      .setIsRandom(viewModelProvider.isRandom);
+                                }
+                              },
+                              icon: Icon(Icons.shuffle,
+                                  size: 28,
+                                  color: viewModelProvider.isRandom == false
+                                      ? Colors.white
+                                      : Colors.blueGrey)),
+                          IconButton(
+                              onPressed: () {
+                                if (viewModelProvider.globalIndex > 0) {
+                                  viewModelProvider.globalIndex--;
+                                  viewModelProvider.setGlobalIndex(
+                                      viewModelProvider.globalIndex);
+                                  viewModelProvider.selectedMusicProvider =
+                                      viewModelProvider.musicListProvider[
+                                          viewModelProvider.globalIndex];
+                                  viewModelProvider.setSelectedMusic(
+                                      viewModelProvider.selectedMusicProvider);
+                                  playMusic();
+                                }
+                              },
+                              icon: Icon(
+                                Icons.skip_previous,
+                                size: 34,
+                                color: Colors.white,
+                              )),
+                          GestureDetector(
+                            onTap: () {
+                              audioPlayerState == PlayerState.PLAYING
+                                  ? pauseMusic()
+                                  : playMusic();
+                              setState(() {});
+                            },
+                            child: Icon(
+                              audioPlayerState == PlayerState.PLAYING
+                                  ? Icons.pause_circle_filled_outlined
+                                  : Icons.play_circle_fill_outlined,
+                              size: 60,
+                              color: Colors.white,
+                            ),
+                          ),
+                          IconButton(
+                              onPressed: () {
+                                if (viewModelProvider.globalIndex ==
+                                    viewModelProvider.musicListProvider.length -
+                                        1) {
+                                  viewModelProvider.globalIndex = 0;
+                
+                                  viewModelProvider.setGlobalIndex(
+                                      viewModelProvider.globalIndex);
+                                  viewModelProvider.selectedMusicProvider =
+                                      viewModelProvider.musicListProvider[
+                                          viewModelProvider.globalIndex];
+                                  viewModelProvider.setSelectedMusic(
+                                      viewModelProvider.selectedMusicProvider);
+                                  playMusic();
+                                } else {
+                                  viewModelProvider.globalIndex++;
+                                  viewModelProvider.setGlobalIndex(
+                                      viewModelProvider.globalIndex);
+                                  viewModelProvider.selectedMusicProvider =
+                                      viewModelProvider.musicListProvider[
+                                          viewModelProvider.globalIndex];
+                                  viewModelProvider.setSelectedMusic(
+                                      viewModelProvider.selectedMusicProvider);
+                                  playMusic();
+                                }
+                              },
+                              icon: Icon(
+                                Icons.skip_next,
+                                size: 34,
+                                color: Colors.white,
+                              )),
+                          IconButton(
+                              onPressed: () {
+                                if (viewModelProvider.isLoop == false) {
+                                  audioPlayer.setReleaseMode(ReleaseMode.LOOP);
+                                  viewModelProvider.isLoop = true;
+                                  viewModelProvider
+                                      .setIsLoop(viewModelProvider.isLoop);
+                                  setState(() {});
+                                } else if (viewModelProvider.isLoop == true) {
+                                  audioPlayer.setReleaseMode(ReleaseMode.RELEASE);
+                                  viewModelProvider.isLoop = false;
+                                  viewModelProvider
+                                      .setIsLoop(viewModelProvider.isLoop);
+                                  setState(() {});
+                                }
+                              },
+                              icon: Icon(
+                                Icons.repeat,
+                                size: 28,
+                                color: viewModelProvider.isLoop == false
+                                    ? Colors.white
+                                    : Colors.blueGrey,
+                              )),
+                        ],
+                      )
+                    ],
+                  ),
+                )),
+              ),
             );
           }),
         );

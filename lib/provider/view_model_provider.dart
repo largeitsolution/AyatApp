@@ -1,7 +1,19 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:golpo/model/music_model.dart';
 
 class ViewModelProvider extends ChangeNotifier {
+  AudioPlayer _audioPlayer = AudioPlayer();
+  PlayerState _audioPlayerState = PlayerState.PAUSED;
+  Duration _position = new Duration();
+  Duration _musicLength = new Duration();
+  int _timeProgress = 0;
+  int _audioDuration = 0;
+  AudioPlayer get audioPlayer => _audioPlayer;
+  PlayerState get audioPlayerState => _audioPlayerState;
+  Duration get position => _position;
+  int get timeProgress => _timeProgress;
+  int get audioDuration => _audioDuration;
   List<MusicModel> _list = [
     MusicModel(
         title: "Allah Amr Rob",
@@ -59,4 +71,44 @@ class ViewModelProvider extends ChangeNotifier {
     totalDuration = td;
     notifyListeners();
   }
+getstarttime(){
+
+}
+  getTimeString(int seconds) {
+    
+    String minuteString =
+        '${(seconds / 60).floor() < 10 ? 0 : ''}${(seconds / 60).floor()}';
+    String secondString = '${seconds % 60 < 10 ? 0 : ''}${seconds % 60}';
+    return '$minuteString:$secondString'; // Returns a string with the format mm:ss
+  }
+
+
+  // seekToSec(int sec) {
+  //   Duration newPos = Duration(seconds: sec);
+  //   audioPlayer
+  //       .seek(newPos); // Jumps to the given position within the audio file
+  // }
+
+
+  // slider() {
+  //   return Container(
+  //     width: 300.0,
+  //     child: Slider.adaptive(
+  //         value: timeProgress.toDouble(),
+  //         max: audioDuration.toDouble(),
+  //         onChanged: (value) {
+  //           seekToSec(value.toInt());
+  //           //   print(audioDuration.toDouble());
+  //           //   print(value);
+  //           // if(value== audioDuration.toDouble()){
+  //           //   indexloop ++;
+  //           //   setState(() {
+  //           //     alldata=musicList[indexloop];
+  //           //   });
+  //           // }
+  //         }),
+  //   );
+  // }
+
+  
 }
