@@ -128,7 +128,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void dispose() {
     audioPlayer.release();
-    // audioPlayer.dispose();
+     audioPlayer.dispose();
+    audioPlayer.notificationService;
    
     super.dispose();
   }
@@ -426,7 +427,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 backgroundColor: Colors.black,
                 appBar: AppBar(
                   centerTitle: true,
-                  toolbarHeight: 150,
+                  toolbarHeight: 120,
                   backgroundColor: Colors.black,
                   elevation: 0.0,
                   leading: IconButton(
@@ -486,12 +487,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              CustomText(
-                                text: viewModelProvider
+                              Text(
+                                 viewModelProvider
                                     .selectedMusicProvider!.title,
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
+                                // color: Colors.white,
+                                // fontSize: 16,
+                                // fontWeight: FontWeight.w600,
                               ),
                               CustomText(
                                 text: viewModelProvider

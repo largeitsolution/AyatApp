@@ -1,3 +1,5 @@
+//import 'package:audioplayers/audioplayers.dart';
+import 'package:audio_service/audio_service.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:golpo/provider/view_model_provider.dart';
@@ -61,7 +63,7 @@ class _PlayerDetailsState extends State<PlayerDetails> {
     });
 
     /// Optional
-    audioPlayer.setUrl(viewModelProvider.selectedMusicProvider == null
+    audioPlayer.setUrl(viewModelProvider.selectedMusicProvider != null
         ? "none"
         : viewModelProvider.selectedMusicProvider!
             .url); // Triggers the onDurationChanged listener and sets the max duration string
@@ -82,6 +84,7 @@ class _PlayerDetailsState extends State<PlayerDetails> {
   void dispose() {
     audioPlayer.release();
     audioPlayer.dispose();
+    audioPlayer.notificationService;
     super.dispose();
   }
 
@@ -179,7 +182,7 @@ class _PlayerDetailsState extends State<PlayerDetails> {
                           fontWeight: FontWeight.w600,
                         ),
                         CustomText(
-                          text: viewModelProvider.selectedMusicProvider!.lebel,
+                          text: viewModelProvider.selectedMusicProvider?.lebel,
                           color: Colors.grey,
                           fontSize: 15,
                           fontWeight: FontWeight.w600,

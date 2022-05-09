@@ -1,5 +1,5 @@
 class MusicModel {
-  String title, lebel, url, imageUrl;
+  String title, lebel, url, imageUrl='hell';
   MusicModel(
       {required this.title,
       required this.lebel,

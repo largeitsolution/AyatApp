@@ -21,6 +21,12 @@ class ViewModelProvider extends ChangeNotifier {
         imageUrl:
             "https://thumbs.dreamstime.com/b/environment-earth-day-hands-trees-growing-seedlings-bokeh-green-background-female-hand-holding-tree-nature-field-gra-130247647.jpg",
         url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3"),
+         MusicModel(
+        title: "Allah AllMIght",
+        lebel: "Kazi Nazrul",
+        imageUrl:
+            "https://thumbs.dreamstime.com/b/environment-earth-day-hands-trees-growing-seedlings-bokeh-green-background-female-hand-holding-tree-nature-field-gra-130247647.jpg",
+        url: "https://s3.amazonaws.com/scifri-episodes/scifri20181123-episode.mp3"),
     MusicModel(
         title: "Allah Amr Sob",
         lebel: "Sofiya Kamal",
@@ -34,7 +40,7 @@ class ViewModelProvider extends ChangeNotifier {
   ];
 
   List<MusicModel> get musicListProvider => _list;
-  MusicModel? selectedMusicProvider;
+  MusicModel ?selectedMusicProvider;
 
   int globalIndex = 0;
   bool isLoop = false;
