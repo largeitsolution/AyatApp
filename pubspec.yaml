@@ -39,6 +39,8 @@ dependencies:
   audio_service: ^0.18.4
   just_audio: ^0.9.21
   just_audio_background:
+  just_waveform: ^0.0.2
+  flutter_exoplayer: ^0.6.1
  
  
 

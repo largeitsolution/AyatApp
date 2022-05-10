@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:audio_service/audio_service.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:golpo/model/music_model.dart';
@@ -8,7 +9,7 @@ import 'package:golpo/screens/player_details.dart';
 import 'package:golpo/widgets/custom_text.dart';
 import 'package:golpo/widgets/music_card.dart';
 import 'package:provider/provider.dart';
-
+late AudioHandler _audioHandler;
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -19,6 +20,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   late ViewModelProvider viewModelProvider;
+ 
   List<MusicModel> musicList = [
     MusicModel(
         title: "Allah Amr Rob",
@@ -682,3 +684,4 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
